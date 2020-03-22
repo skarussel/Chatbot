@@ -1,30 +1,61 @@
 from tinydb import TinyDB,Query
+
 class DB():
+     """ 
+    Diese Klasse verwaltet eine TinyDB Datenbank. 
+      
+    Attributes: 
+        db (TinyDB): Eine TinyDB Datenbank, die im JSON Format verwaltet wird. 
+    """
+
+    
     def __init__(self, db_path):
-        self.db_path=db_path
+        """ 
+        Der Konstruktur erzeugt eine Datenbank im JSON Format,
+        im übergebenen Pfad oder stellt eine Verbindung zu diesem her,
+        falls beim Pfad bereits ein Datenbankobjekt existiert.
+        """
+        
+        self.db=TinyDB(db_path)
         
     def select_all(self):
-        db = TinyDB(self.db_path)
-        return db.all()
+        """ 
+        Diese Funktion gibt alle Einträge der Datenbank als Liste zurück
+        """
+        
+        return self.db.all()
     
     def select_user(self,user_id):
-        db = TinyDB(self.db_path)
+        """ 
+        Diese Funktion gibt den Eintrag eines bestimmten Users zurück
+        """
+        
         User=Query()
-        return db.search(User.USER_ID == user_id)
+        return self.db.search(User.USER_ID == user_id)
     
     def insert(self, user_id,name):
-        db = TinyDB(self.db_path)
-        db.insert({'USER_ID': user_id,'USER':name,'AGE':10})
+        """ 
+        Diese Funktion fügt einen neuen Eintrag in die Datenbank ein
+        Das Alter (Age) ist bisher nur ein Dummy.
+        """
+        
+        self.db.insert({'USER_ID': user_id,'USER':name,'AGE':10})
     
     def remove_all(self):
-        db = TinyDB(self.db_path)
-        db.purge()
+        """ 
+        Diese Funktion entfernt alle Einträge aus der Datenbank
+        """
+        self.db.purge()
         
     
     def user_exists(self,user_id):
-        db = TinyDB(self.db_path)
+        """ 
+        Diese Funktion prüft, ob ein User in der DB existiert
+        und gibt als Ergebnis einen Bool zurück
+        """
+        
         User=Query()
-        result = db.search(User.USER_ID==user_id)
+        result = self.db.search(User.USER_ID==user_id)
         if result:
             return True
         return False
