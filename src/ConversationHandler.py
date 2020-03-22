@@ -1,5 +1,15 @@
 class ConversationHandler:
     
+    """ 
+    Diese Klasse verwaltet den Zustand der Konversationen. 
+      
+    Attributes: 
+        emoji (dict): Mapping der Emojis to unicode. 
+        states (dict): Mapping der Zustände auf Antwortmöglichkeiten.
+        indices (dict): Mapping der Zuständsübergänge auf neue Zustände
+        default_message (string): Die Standartantwort, falls der Nutzer keine erwartete Eingabe trifft
+    """
+    
     emoji =  {"confused":"\U0001F615", "wink":"\U0001F609", "repeat":"\U0001F501",
     "worried":"\U0001F61F","muscle":"\U0001F4AA", "smiling":"\U0001F60A"}
     states =  {
@@ -25,10 +35,30 @@ class ConversationHandler:
         "Bitte benutze eine der Antwortmöglichkeiten, die ich dir gegeben habe" + emoji["wink"]
     
     def current_message(self, state):
+         """ 
+         Diese Funktion liefert die zum derzeitigen Zustand gehörige Aussage des Bots. 
+  
+         Parameters: 
+            state (int): Der aktuelle Zustand. 
+          
+         Returns: 
+            string: Aktuelle Aussage + Antwortmöglichkeiten. 
+        """
         return self.states[state][0] + " \n\n" + self.states[state][1]
     
         
     def update (self, message, state):
+        """ 
+         Diese Funktion aktualisiert den Zustand der Konversation. 
+  
+         Parameters: 
+            message (string): Die Eingabe des Nutzers
+            state (int): Der aktuelle Zustand. 
+          
+         Returns:
+            int: der neue Zustand 
+            string: Anwort  
+        """
 
         if (state==900):
             return 901 , self.states[900]
