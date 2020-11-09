@@ -5,5 +5,5 @@ Coco soll Menschen in Isolation durch psychologische Hilfe unterstützen. Unser 
 
 # Getting Started
 
-Bevor das Programm gestartet werden kann, muss in der config.cfg ein Authorisierungstoken für einen Telegram Bot hinzugefügt werden.
-Das Programm startet über einen Aufruf der server.py
+Bevor der Bot gestartet werden kann, muss in der config.cfg ein Authorisierungstoken für einen Telegram Bot hinzugefügt werden.
+Der Bot wird über einen Aufruf der server.py gestartet.
